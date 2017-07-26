@@ -52,7 +52,11 @@
         {"id": "division", "type": "action", "value": "/", "class": "btn btn-info"},
         {"id": "percent", "type": "action", "value": "%", "class": "btn btn-info"},
         {"id": "minus", "type": "action", "value": "-", "class": "btn btn-info"},
-        {"id": "dot", "type": "action", "value": ".", "class": "btn btn-info"}
+        {"id": "plus", "type": "action", "value": "+", "class": "btn btn-info"},
+        {"id": "dot", "type": "action", "value": ".", "class": "btn btn-info"},
+        {"id": "plus-minus", "type": "action", "value": "+-", "class": "btn btn-info"},
+        {"id": "root", "type": "action", "value": "√", "class": "btn btn-info"},
+        {"id": "backspace", "type": "action", "value": "<|", "class": "btn btn-info"}
 
 
     ];
@@ -77,11 +81,11 @@
 
     });
 
-
+var g = "";
     $(document).ready(function () {
         $(".btn-info").click(function () {
             var valueOnClick = $(this).val();
-            $("#input").val(valueOnClick);
+            $("#input").val(g += valueOnClick); // g+=valueOnClick    - prie g (tuscio stringo) pridedu ka spaudziu. Kitaip pakeicia esancia reiksme i nauja.
         });
     });
 
