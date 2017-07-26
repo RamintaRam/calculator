@@ -17,8 +17,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
-    <script src="js/data.js"></script>
-    <script src="js/setting_buttons.js"></script>
+    <!--<script src="js/data.js"></script>-->
+    <!--<script src="js/setting_buttons.js"></script>-->
 
     <script language="JavaScript" type="text/javascript" src="/js/jquery-1.2.6.min.js"></script>
     <script language="JavaScript" type="text/javascript" src="/js/jquery-ui-personalized-1.5.2.packed.js"></script>
@@ -58,22 +58,38 @@
     ];
 
 
+    $("<input>").attr(
+        {
+            name: "textfield",
+            id: "input",
+            type: "text",
+            value: 0,
+            readonly: "readonly"
+        }
+    ).appendTo('#field');
+
+
     $(document).ready(function () {
-        $("#field").append("<input>");
+//        $("#field").append("<input>");
         $.each(data, function (key, data) {
             $("#field").append($("<button>" + data.value + '</button>').attr("type", data.type).attr("value", data.value).attr("class", data.class).attr("id", data.id));
         });
-//        $("#container").html(divrow);
+
     });
 
 
     $(document).ready(function () {
         $(".btn-info").click(function () {
             var valueOnClick = $(this).val();
-            console.log(valueOnClick);
-
+            $("#input").val(valueOnClick);
         });
     });
+
+
+
+
+
+
 
 
 
