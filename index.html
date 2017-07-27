@@ -40,22 +40,22 @@
         {"id": "zero", "type": "number", "value": "0", "class": "btn btn-info"},
         {"id": "one", "type": "number", "value": "1", "class": "btn btn-info"},
         {"id": "two", "type": "number", "value": "2", "class": "btn btn-info"},
-        {"id": "division", "type": "action", "value": "/", "class": "btn btn-default"},
+        {"id": "division", "type": "action", "value": "/", "class": "btn btn-default disable"},
         {"id": "three", "type": "number", "value": "3", "class": "btn btn-info"},
         {"id": "four", "type": "number", "value": "4", "class": "btn btn-info"},
         {"id": "five", "type": "number", "value": "5", "class": "btn btn-info"},
-        {"id": "multi", "type": "action", "value": "x", "class": "btn btn-default"},
+        {"id": "multi", "type": "action", "value": "x", "class": "btn btn-default disable"},
         {"id": "six", "type": "number", "value": "6", "class": "btn btn-info"},
         {"id": "seven", "type": "number", "value": "7", "class": "btn btn-info"},
         {"id": "eight", "type": "number", "value": "8", "class": "btn btn-info"},
-        {"id": "equal", "type": "action", "value": "=", "class": "btn btn-default"},
+        {"id": "equal", "type": "action", "value": "=", "class": "btn btn-default disable"},
         {"id": "nine", "type": "number", "value": "9", "class": "btn btn-info"},
         {"id": "dot", "type": "number", "value": ".", "class": "btn btn-default"},
-        {"id": "percent", "type": "action", "value": "%", "class": "btn btn-default"},
-        {"id": "minus", "type": "action", "value": "-", "class": "btn btn-default"},
-        {"id": "plus-minus", "type": "action", "value": "+-", "class": "btn btn-info"},
-        {"id": "plus", "type": "action", "value": "+", "class": "btn btn-default"},
-        {"id": "root", "type": "action", "value": "√", "class": "btn btn-default"},
+        {"id": "percent", "type": "action", "value": "%", "class": "btn btn-default disable"},
+        {"id": "minus", "type": "action", "value": "-", "class": "btn btn-default disable"},
+        {"id": "plus-minus", "type": "action", "value": "+-", "class": "btn btn-info disable"},
+        {"id": "plus", "type": "action", "value": "+", "class": "btn btn-default disable"},
+        {"id": "root", "type": "action", "value": "√", "class": "btn btn-default disable"},
         {"id": "backspace", "type": "action", "value": "<|", "class": "btn btn-default"}
 
 
@@ -76,7 +76,9 @@
     $(document).ready(function () {
 //        $("#field").append("<input>");
         $.each(data, function (key, data) {
-            $("#field").append($("<button>" + data.value + '</button>').attr("type", data.type).attr("value", data.value).attr("class", data.class).attr("id", data.id));
+            $("#field").append($("<button>" + data.value + '</button>')
+                .attr("type", data.type).attr("value", data.value)
+                .attr("class", data.class).attr("id", data.id).attr("disabled", false));
         });
 
     });
@@ -115,6 +117,8 @@
                         a += $b.val();
 
                     $("#input").val(a);
+
+                    console.log("action");
             }
 
         }
@@ -123,6 +127,7 @@
                 case 'C':
                     a = '0';
                     $("#input").val(a);
+                    $(".disable").attr("disabled", false);
 
                     break;
 
@@ -152,20 +157,22 @@
                     $("#input").val(a);
 
                     break;
+
+                case '+':
+                case '-':
+                case 'x':
+                case '/':
+                case '%':
+                case '√':
+
+                    action = $b.val();
+                    $(".disable").attr("disabled", true);
+
+                    a += '' + action + '';
+                    $("#input").val(a);
             }
         }
     }
-
-    //
-    //var g = "";
-    //
-    //    $(document).ready(function () {
-    //        $(".btn-info").click(function () {
-    //
-    //            var valueOnClick = $(this).val();
-    //            $("#input").val(g += valueOnClick); // g+=valueOnClick    - prie g (tuscio stringo) pridedu ka spaudziu. Kitaip pakeicia esancia reiksme i nauja.
-    //        });
-    //    });
 
 
 </script>
