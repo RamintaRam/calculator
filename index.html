@@ -36,27 +36,29 @@
 
 <script>
     var data = [
-        {"id": "clear", "type": "action", "value": "C", "class": "btn btn-info"},
+        {"id": "clear", "type": "action", "value": "C", "class": "btn-default"},
         {"id": "zero", "type": "number", "value": "0", "class": "btn btn-info"},
         {"id": "one", "type": "number", "value": "1", "class": "btn btn-info"},
         {"id": "two", "type": "number", "value": "2", "class": "btn btn-info"},
+        {"id": "division", "type": "action", "value": "/", "class": "btn-default"},
         {"id": "three", "type": "number", "value": "3", "class": "btn btn-info"},
         {"id": "four", "type": "number", "value": "4", "class": "btn btn-info"},
         {"id": "five", "type": "number", "value": "5", "class": "btn btn-info"},
+        {"id": "multi", "type": "action", "value": "x", "class": "btn-default"},
         {"id": "six", "type": "number", "value": "6", "class": "btn btn-info"},
         {"id": "seven", "type": "number", "value": "7", "class": "btn btn-info"},
         {"id": "eight", "type": "number", "value": "8", "class": "btn btn-info"},
+        {"id": "equal", "type": "action", "value": "=", "class": "btn-default"},
         {"id": "nine", "type": "number", "value": "9", "class": "btn btn-info"},
-        {"id": "equal", "type": "action", "value": "=", "class": "btn btn-info"},
-        {"id": "multi", "type": "action", "value": "x", "class": "btn btn-info"},
-        {"id": "division", "type": "action", "value": "/", "class": "btn btn-info"},
-        {"id": "percent", "type": "action", "value": "%", "class": "btn btn-info"},
-        {"id": "minus", "type": "action", "value": "-", "class": "btn btn-info"},
-        {"id": "plus", "type": "action", "value": "+", "class": "btn btn-info"},
+
+        {"id": "minus", "type": "action", "value": "-", "class": "btn-default"},
+        {"id": "plus", "type": "action", "value": "+", "class": "btn-default"},
         {"id": "dot", "type": "action", "value": ".", "class": "btn btn-info"},
+        {"id": "percent", "type": "action", "value": "%", "class": "btn-default"},
         {"id": "plus-minus", "type": "action", "value": "+-", "class": "btn btn-info"},
-        {"id": "root", "type": "action", "value": "√", "class": "btn btn-info"},
-        {"id": "backspace", "type": "action", "value": "<|", "class": "btn btn-info"}
+
+        {"id": "root", "type": "action", "value": "√", "class": "btn-default"},
+        {"id": "backspace", "type": "action", "value": "<|", "class": "btn-default"}
 
 
     ];
@@ -83,7 +85,8 @@
 
 var g = "";
     $(document).ready(function () {
-        $(".btn-info").click(function () {
+        $(".btn-info").click(function (e) {
+            console.log(e);
             var valueOnClick = $(this).val();
             $("#input").val(g += valueOnClick); // g+=valueOnClick    - prie g (tuscio stringo) pridedu ka spaudziu. Kitaip pakeicia esancia reiksme i nauja.
         });
