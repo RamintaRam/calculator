@@ -50,11 +50,11 @@
         {"id": "eight", "type": "number", "value": "8", "class": "btn btn-info"},
         {"id": "equal", "type": "action", "value": "=", "class": "btn btn-default"},
         {"id": "nine", "type": "number", "value": "9", "class": "btn btn-info"},
-        {"id": "minus", "type": "action", "value": "-", "class": "btn btn-default"},
-        {"id": "plus", "type": "action", "value": "+", "class": "btn btn-default"},
         {"id": "dot", "type": "number", "value": ".", "class": "btn btn-default"},
         {"id": "percent", "type": "action", "value": "%", "class": "btn btn-default"},
+        {"id": "minus", "type": "action", "value": "-", "class": "btn btn-default"},
         {"id": "plus-minus", "type": "number", "value": "+-", "class": "btn btn-info"},
+        {"id": "plus", "type": "action", "value": "+", "class": "btn btn-default"},
         {"id": "root", "type": "action", "value": "√", "class": "btn btn-default"},
         {"id": "backspace", "type": "action", "value": "<|", "class": "btn btn-default"}
 
@@ -99,7 +99,7 @@
                     break;
 
                 case "0":
-                    if (a.length === 1) $$(a === 0)
+                    if (a.length === 1 && a === "0"){}
                     else {
                         a += $b.val();
                         $("#input").val(a);
@@ -107,9 +107,12 @@
                     break;
 
                 default:
-                    a += $b.val();
-                    $("#input").val(a);
+                    if (a.length === 1 && a === "0")
+                        a = $b.val();
+                    else
+                        a += $b.val();
 
+                    $("#input").val(a);
             }
 
         }
