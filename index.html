@@ -53,7 +53,7 @@
         {"id": "dot", "type": "number", "value": ".", "class": "btn btn-default"},
         {"id": "percent", "type": "action", "value": "%", "class": "btn btn-default"},
         {"id": "minus", "type": "action", "value": "-", "class": "btn btn-default"},
-        {"id": "plus-minus", "type": "number", "value": "+-", "class": "btn btn-info"},
+        {"id": "plus-minus", "type": "action", "value": "+-", "class": "btn btn-info"},
         {"id": "plus", "type": "action", "value": "+", "class": "btn btn-default"},
         {"id": "root", "type": "action", "value": "√", "class": "btn btn-default"},
         {"id": "backspace", "type": "action", "value": "<|", "class": "btn btn-default"}
@@ -86,7 +86,8 @@
     });
 
 
-    var a = "";
+    var a = "0";
+
     function handleClick(e) {
         var $b = $(e.currentTarget);
         if ($b.attr("type") === "number") {
@@ -99,7 +100,8 @@
                     break;
 
                 case "0":
-                    if (a.length === 1 && a === "0"){}
+                    if (a.length === 1 && a === "0") {
+                    }
                     else {
                         a += $b.val();
                         $("#input").val(a);
@@ -116,23 +118,43 @@
             }
 
         }
+        else if ($b.attr("type") === "action") {
+            switch ($b.val()) {
+                case 'C':
+                    a = '0';
+                    $("#input").val(a);
 
+                    break;
 
-//            if ($b.val() === ".") {
-//                if (a.indexOf(".") === -1) {
-//                    a += $b.val();
-//                    $("#input").val(a);
-//                }
-//            }
-//            else {
-//                a += $b.val();
-//                $("#input").val(a);
-//            }
-//        }
+                case '<|':
 
+                    a = a.slice(0, -1);
 
+                    if (a.length < 1)
+                        a = '0';
+
+                    $("#input").val(a);
+
+                    break;
+
+                case '+-':
+
+                    if (a[0] === "-") {
+                        a = a.substring(1, a.length);
+
+                    }
+                    else {
+                        if (a !== "0") {
+                            a = "-" + a;
+                        }
+                    }
+
+                    $("#input").val(a);
+
+                    break;
+            }
+        }
     }
-
 
     //
     //var g = "";
