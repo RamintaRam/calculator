@@ -96,6 +96,7 @@
     var ACTION_DELETE_LAST = "action_delete_last";
     var ACTION_REVERSE = "action_reverse";
     var ACTION_ADD = "action_add";
+    var ACTION_CALCULATE = "action_caltucale";
 
 
     var a = "0";
@@ -162,6 +163,10 @@
 //
 //                    a += '' + actions + '';
 //                    $("#input").val(a);
+
+                    break;
+                case "=":
+                    updateNumber(ACTION_CALCULATE);
             }
         }
 
@@ -211,8 +216,32 @@
 
                 break;
             case ACTION_CLEAR:
-            default:
-                console.log("unknown action");
+                break;
+
+            case ACTION_CALCULATE:
+
+                for(i = 0; i < numbers.length; i++)
+                      var  b = parseFloat(numbers[i]);
+                        switch (action[i-1]){
+                            case "+":
+                                a+=b;
+                                break;
+                            case "-":
+                                a-=b;
+                             break;
+                            case "/":
+                                a/=b;
+                                break;
+                            case "%":
+                                a%=b;
+                                break;
+
+                            default:
+                                console.log("unknown action");
+                                
+                        }
+                $("#input").val(a);
+
         }
 //        if (!action)
 //            n += value;
