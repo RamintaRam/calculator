@@ -13,18 +13,18 @@
     <!--istrinti pasikartojancius-->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- Latest compiled and minified JavaScript -->
+   <!-- &lt;!&ndash; Latest compiled and minified JavaScript &ndash;&gt;
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
-    <!--<script src="js/data.js"></script>-->
-    <!--<script src="js/setting_buttons.js"></script>-->
+    &lt;!&ndash;<script src="js/data.js"></script>&ndash;&gt;
+    &lt;!&ndash;<script src="js/setting_buttons.js"></script>&ndash;&gt;
 
     <script language="JavaScript" type="text/javascript" src="/js/jquery-1.2.6.min.js"></script>
     <script language="JavaScript" type="text/javascript" src="/js/jquery-ui-personalized-1.5.2.packed.js"></script>
     <script language="JavaScript" type="text/javascript" src="/js/sprinkle.js"></script>
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
     <link rel="stylesheet" href="css.css">
 
 
@@ -87,40 +87,23 @@
         $(".btn").click(handleClick);
     });
 
+    var numbers = ['0'];
+    var actions = [];
+
+    var ACTION_REPLACE = "action_replace";
+    var ACTION_INCREMENT = "action_increment";
+    var ACTION_CLEAR = "action_clear";
+    var ACTION_DELETE_LAST = "action_delete_last";
+    var ACTION_REVERSE = "action_reverse";
+    var ACTION_ADD = "action_add";
+
 
     var a = "0";
 
     function handleClick(e) {
         var $b = $(e.currentTarget);
         if ($b.attr("type") === "number") {
-            switch ($b.val()) {
-                case ".":
-                    if (a.indexOf(".") === -1) {
-                        a += $b.val();
-                        $("#input").val(a);
-                    }
-                    break;
-
-                case "0":
-                    if (a.length === 1 && a === "0") {
-                    }
-                    else {
-                        a += $b.val();
-                        $("#input").val(a);
-                    }
-                    break;
-
-                default:
-                    if (a.length === 1 && a === "0")
-                        a = $b.val();
-                    else
-                        a += $b.val();
-
-                    $("#input").val(a);
-
-                    console.log("action");
-            }
-
+            updateNumber(ACTION_INCREMENT, $b.val());
         }
         else if ($b.attr("type") === "action") {
             switch ($b.val()) {
@@ -165,21 +148,72 @@
                 case '%':
                 case '√':
 
-                    action = $b.val();
-                    $(".disable").attr("disabled", true);
-
-                    a += '' + action + '';
-                    $("#input").val(a);
+                    actions.push ($b.val());
+                    numbers[actions.length] = '0';
+//                    $(".disable").attr("disabled", true);
+//
+//                    a += '' + actions + '';
+//                    $("#input").val(a);
             }
         }
+
+        updateInput();
     }
 
 
-    function updateNumber(value, increment ) {
-        if(!action)
-            a += value;
-        else
-            b += value;
+    function updateNumber(action, value) {
+        switch (action) {
+            case ACTION_INCREMENT:
+                var n = numbers[actions.length];
+
+                console.log(n);
+
+                switch (value) {
+                    case ".":
+                        if (n.indexOf(".") === -1) {
+
+                            n += value;
+                            $("#input").val(n);
+                        }
+                        break;
+
+                    case "0":
+                        if (n.length === 1 && n === "0") {
+                        }
+                        else {
+//                            updateNumber(ACTION_INCREMENT, $b.val());
+                            n += value;
+                            $("#input").val(n);
+                        }
+                        break;
+
+                    default:
+                        if (n.length === 1 && n === "0")
+                            //updateNumber(ACTION_REPLACE, $b.val());
+                            n = value;
+                        else
+//                            updateNumber(ACTION_INCREMENT, $b.val());
+                            n += value;
+                }
+
+                numbers[actions.length] = n;
+
+                break;
+            case ACTION_REVERSE:
+
+                break;
+            case ACTION_CLEAR:
+            default:
+                console.log("unknown action");
+        }
+//        if (!action)
+//            n += value;
+//        else
+//            b += value;
+    }
+
+    function updateInput() {
+        console.log(numbers, actions);
     }
 
 
