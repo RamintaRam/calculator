@@ -93,6 +93,7 @@
     var ACTION_REVERSE = "action_reverse";
     var ACTION_ADD = "action_add";
     var ACTION_CALCULATE = "action_caltucale";
+    var ACTION_PERCENT = "action_percent";
 
     function handleClick(e) {
 
@@ -119,13 +120,23 @@
 
                     break;
 
+                case '%':
+                    updateNumber(ACTION_PERCENT);
+
+                    break;
+
                 case '+':
                 case '-':
                 case 'x':
                 case '/':
-                case '%':
                 case '√':
 
+
+                    var n = numbers[actions.length];
+                    if (n[n.length - 1] === '.')
+                        n = n.substring(0, n.length - 1);
+
+                    numbers[actions.length] = n;
 
                     if (numbers[numbers.length - 1] !== "0") { // su -1 pasiimam paskutini array elementa
                         actions.push($b.val());
@@ -243,9 +254,44 @@
 
                 }
 
-                numbers = [a];
+                numbers = [a.toString()];
                 actions = [];
                 break;
+
+
+            case ACTION_PERCENT:
+
+                var s;
+
+                for (var j = 0; j < numbers.length - 1; j++) {
+
+                    if (s) {
+                        var c = parseFloat(numbers[j]);
+
+                        switch (actions[j - 1]) {
+                            case '+':
+                                s += c;
+                                break;
+                            case '-':
+                                s -= c;
+                                break;
+                            case '*':
+                                s *= c;
+                                break;
+                            case '/':
+                                s /= c;
+                                break;
+                        }
+                    } else {
+                        s = parseFloat(numbers[j]);
+                    }
+
+                }
+
+                numbers[actions.length] = ((s / 100)*numbers[actions.length]).toString();
+
+                break;
+
 
             case ACTION_DELETE_LAST:
 
@@ -258,7 +304,7 @@
                     }
                 }
                 else {
-                    n = n.substring(0, n.length -1);
+                    n = n.substring(0, n.length - 1);
 
                     if (n.length === 0) {
                         n = '0';
