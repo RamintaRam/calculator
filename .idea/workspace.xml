@@ -25,8 +25,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="93">
-              <caret line="192" column="56" lean-forward="false" selection-start-line="192" selection-start-column="50" selection-end-line="192" selection-end-column="56" />
+            <state relative-caret-position="546">
+              <caret line="248" column="0" lean-forward="true" selection-start-line="248" selection-start-column="0" selection-end-line="248" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -49,6 +49,8 @@
       <find>console.log</find>
       <find>ACTION_INCREMENT</find>
       <find>16</find>
+      <find>ACTION_DELETE_LAST</find>
+      <find>&lt;|</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -217,7 +219,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="69214000" />
+    <option name="totallyTimeSpent" value="73318000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="1202" height="1047" extended-state="0" />
@@ -259,7 +261,9 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
@@ -529,8 +533,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="93">
-          <caret line="192" column="56" lean-forward="false" selection-start-line="192" selection-start-column="50" selection-end-line="192" selection-end-column="56" />
+        <state relative-caret-position="546">
+          <caret line="248" column="0" lean-forward="true" selection-start-line="248" selection-start-column="0" selection-end-line="248" selection-end-column="0" />
           <folding />
         </state>
       </provider>

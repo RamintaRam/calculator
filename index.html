@@ -110,31 +110,12 @@
                     break;
 
                 case '<|':
-
-//                    a = a.slice(0, -1);
-//
-//                    if (a.length < 1)
-//                        a = '0';
                     updateNumber(ACTION_DELETE_LAST);
-
-                    // $("#input").val(a);
 
                     break;
 
                 case '+-':
                     updateNumber(ACTION_REVERSE);
-
-//                    if (a[0] === "-") {
-//                        a = a.substring(1, a.length);
-//
-//                    }
-//                    else {
-//                        if (a !== "0") {
-//                            a = "-" + a;
-//                        }
-//                    }
-
-                    // $("#input").val(a);
 
                     break;
 
@@ -215,10 +196,21 @@
 
                 break;
             case ACTION_REVERSE:
+                var n = numbers[actions.length];
+                if (n[0] === "-") {
+                    n = n.substring(1, n.length);
+
+                }
+                else {
+                    if (n !== "0") {
+                        n = "-" + n;
+                    }
+                }
+                numbers[actions.length] = n;
 
                 break;
             case ACTION_CLEAR:
-                numbers = [0];
+                numbers = ["0"];
                 actions = [];
                 break;
 
@@ -255,7 +247,28 @@
                 actions = [];
                 break;
 
+            case ACTION_DELETE_LAST:
 
+                var n = numbers[actions.length];
+
+                if (numbers[actions.length] === "0") {
+                    if (numbers.length > 1) {
+                        numbers.pop();
+                        actions.pop();
+                    }
+                }
+                else {
+                    n = n.substring(0, n.length -1);
+
+                    if (n.length === 0) {
+                        n = '0';
+                    }
+
+                    numbers[actions.length] = n;
+                }
+
+
+                break;
             default:
                 console.log("unknown action");
 
@@ -284,9 +297,9 @@
                     s += actions[i];
                 }
             }
-    }
+        }
         $("#input").val(s);
-//        console.log($("#input").val(s));
+        console.log(numbers, actions);
 
     }
 
