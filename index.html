@@ -83,10 +83,6 @@
 
     });
 
-    $(document).ready(function () {
-        $(".btn").click(handleClick);
-    });
-
     var numbers = ['0'];
     var actions = [];
 
@@ -98,45 +94,45 @@
     var ACTION_ADD = "action_add";
     var ACTION_CALCULATE = "action_caltucale";
 
-
-    var a = "0";
-
     function handleClick(e) {
+
         var $b = $(e.currentTarget);
         if ($b.attr("type") === "number") {
             updateNumber(ACTION_INCREMENT, $b.val());
         }
-        else if ($b.attr("type") === "action") {
+        else /*if ($b.attr("type") === "action")*/ {
             switch ($b.val()) {
                 case 'C':
-                    a = '0';
-                    // $("#input").val(a);
-                    $(".disable").attr("disabled", false);
-
+                    updateNumber(ACTION_CLEAR);
+//                    a = '0';
+//                    // $("#input").val(a);
+//                    $(".disable").attr("disabled", false);
                     break;
 
                 case '<|':
 
-                    a = a.slice(0, -1);
-
-                    if (a.length < 1)
-                        a = '0';
+//                    a = a.slice(0, -1);
+//
+//                    if (a.length < 1)
+//                        a = '0';
+                    updateNumber(ACTION_DELETE_LAST);
 
                     // $("#input").val(a);
 
                     break;
 
                 case '+-':
+                    updateNumber(ACTION_REVERSE);
 
-                    if (a[0] === "-") {
-                        a = a.substring(1, a.length);
-
-                    }
-                    else {
-                        if (a !== "0") {
-                            a = "-" + a;
-                        }
-                    }
+//                    if (a[0] === "-") {
+//                        a = a.substring(1, a.length);
+//
+//                    }
+//                    else {
+//                        if (a !== "0") {
+//                            a = "-" + a;
+//                        }
+//                    }
 
                     // $("#input").val(a);
 
@@ -152,12 +148,14 @@
 
                     if (numbers[numbers.length - 1] !== "0") { // su -1 pasiimam paskutini array elementa
                         actions.push($b.val());
-                        numbers[actions.length] = '0';}
+                        numbers[actions.length] = '0';
+                    }
                     else {
                         actions.pop();
                         actions.push($b.val());
                     }
-                    console.log(actions);
+//                    console.log(actions);
+                    numbers[actions.length] = '0';
 
 //                    $(".disable").attr("disabled", true);
 //
@@ -165,21 +163,22 @@
 //                    $("#input").val(a);
 
                     break;
+
                 case "=":
                     updateNumber(ACTION_CALCULATE);
+                    break;
+//                    console.log(a);
+//                    $('input').val(a);
             }
         }
-
         updateInput();
     }
 
-
     function updateNumber(action, value) {
+
         switch (action) {
             case ACTION_INCREMENT:
                 var n = numbers[actions.length];
-
-                console.log(n);
 
                 switch (value) {
                     case ".":
@@ -201,12 +200,15 @@
                         break;
 
                     default:
-                        if (n.length === 1 && n === "0")
-                        //updateNumber(ACTION_REPLACE, $b.val());
+                        if (n.length === 1 && n === "0") {
+                            //updateNumber(ACTION_REPLACE, $b.val());
+
                             n = value;
-                        else
+                        }
+                        else {
 //                            updateNumber(ACTION_INCREMENT, $b.val());
                             n += value;
+                        }
                 }
 
                 numbers[actions.length] = n;
@@ -216,54 +218,82 @@
 
                 break;
             case ACTION_CLEAR:
+                numbers = [0];
+                actions = [];
                 break;
 
             case ACTION_CALCULATE:
 
-                for(i = 0; i < numbers.length; i++)
-                      var  b = parseFloat(numbers[i]);
-                        switch (action[i-1]){
-                            case "+":
-                                a+=b;
-                                break;
-                            case "-":
-                                a-=b;
-                             break;
-                            case "/":
-                                a/=b;
-                                break;
-                            case "%":
-                                a%=b;
-                                break;
+                var a;
 
-                            default:
-                                console.log("unknown action");
-                                
+                for (var i = 0; i < numbers.length; i++) {
+
+                    if (a) {
+                        var b = parseFloat(numbers[i]);
+
+                        switch (actions[i - 1]) {
+                            case '+':
+                                a += b;
+                                break;
+                            case '-':
+                                a -= b;
+                                break;
+                            case '*':
+                                a *= b;
+                                break;
+                            case '/':
+                                a /= b;
+                                break;
                         }
-                $("#input").val(a);
+                    } else {
+                        a = parseFloat(numbers[i]);
+                    }
+
+                }
+
+                numbers = [a];
+                actions = [];
+                break;
+
+
+            default:
+                console.log("unknown action");
 
         }
-//        if (!action)
-//            n += value;
-//        else
-//            b += value;
+
+
     }
+    //        if (!action)
+    //            n += value;
+    //        else
+    //            b += value;
 
 
     function updateInput() {
-//        console.log(numbers, actions);
-        var s = '';
-        for (var i = 0; i < numbers.length; i++) {
-            if (numbers[i] !== "0")
-                s += numbers[i];
 
-            if (actions[i])
-                s += actions[i];
+        var s = '';
+        if (numbers.length === 1) {
+            s = numbers["0"];
         }
+        else {
+            for (var i = 0; i < numbers.length; i++) {
+                if (numbers[i] !== "0")
+                    s += numbers[i];
+
+                if (actions[i]) {
+                    s += actions[i];
+                }
+            }
+    }
         $("#input").val(s);
 //        console.log($("#input").val(s));
 
     }
+
+    $(document).ready(function () {
+        $("button").click(handleClick);
+    });
+
 </script>
 
 
