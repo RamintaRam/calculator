@@ -135,10 +135,11 @@
         updateInput();
     }
 
-// function for logic
+// function for logic:
     function updateNumber(action, value) {
 
         switch (action) {
+            // increment of dot and null. to replace dot by other math symbol. Use 0 as default symbol.
             case ACTION_INCREMENT:
                 var n = numbers[actions.length];
 
@@ -159,7 +160,7 @@
                         break;
 
                     default:
-                        if (n.length === 1 && n === "0") {
+                        if (n.length === 1 && n === "0") {  // default symbol in field (where is visible numbers, symbols and result) is 0
                             n = value;
                         }
                         else {
@@ -169,6 +170,7 @@
                 numbers[actions.length] = n;
                 break;
 
+                // function to make number negative. using the same button, it could be reversed back to positive.
             case ACTION_REVERSE:
                 var n = numbers[actions.length];
                 if (n[0] === "-") {
@@ -186,16 +188,16 @@
                 numbers = ["0"];
                 actions = [];
                 break;
-
+// function to calculate various math functions
             case ACTION_CALCULATE:
 
                 var a;
 
-                for (var i = 0; i < numbers.length; i++) {
+                for (var i = 0; i < numbers.length; i++) {   // check numbers length.
                     if (a) {
                         var b = parseFloat(numbers[i]);
 
-                        switch (actions[i - 1]) {
+                        switch (actions[i - 1]) {  // action array number is one number lower than "var numbers[]" number.
                             case '+':
                                 a += b;
                                 break;
@@ -218,7 +220,7 @@
                 actions = [];
                 break;
 
-
+// function to count percent.
             case ACTION_PERCENT:
                 var s;
                 if (actions.length === 0)
