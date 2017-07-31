@@ -10,21 +10,8 @@
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
 
-    <!--istrinti pasikartojancius-->
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- &lt;!&ndash; Latest compiled and minified JavaScript &ndash;&gt;
-     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-             crossorigin="anonymous"></script>
-     &lt;!&ndash;<script src="js/data.js"></script>&ndash;&gt;
-     &lt;!&ndash;<script src="js/setting_buttons.js"></script>&ndash;&gt;
 
-     <script language="JavaScript" type="text/javascript" src="/js/jquery-1.2.6.min.js"></script>
-     <script language="JavaScript" type="text/javascript" src="/js/jquery-ui-personalized-1.5.2.packed.js"></script>
-     <script language="JavaScript" type="text/javascript" src="/js/sprinkle.js"></script>
-
-     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
     <link rel="stylesheet" href="css.css">
 
 
@@ -56,7 +43,7 @@
         {"id": "plus-minus", "type": "action", "value": "+-", "class": "btn btn-info disable"},
         {"id": "plus", "type": "action", "value": "+", "class": "btn btn-default disable"},
         {"id": "root", "type": "action", "value": "√", "class": "btn btn-default disable"},
-        {"id": "backspace", "type": "action", "value": "<|", "class": "btn btn-default"}
+        {"id": "backspace", "type": "action", "value": "CE", "class": "btn btn-default"}
 
 
     ];
@@ -74,7 +61,6 @@
 
 
     $(document).ready(function () {
-//        $("#field").append("<input>");
         $.each(data, function (key, data) {
             $("#field").append($("<button>" + data.value + '</button>')
                 .attr("type", data.type).attr("value", data.value)
@@ -86,43 +72,36 @@
     var numbers = ['0'];
     var actions = [];
 
-    var ACTION_REPLACE = "action_replace";
     var ACTION_INCREMENT = "action_increment";
     var ACTION_CLEAR = "action_clear";
     var ACTION_DELETE_LAST = "action_delete_last";
     var ACTION_REVERSE = "action_reverse";
-    var ACTION_ADD = "action_add";
     var ACTION_CALCULATE = "action_caltucale";
     var ACTION_PERCENT = "action_percent";
 
+    // function for action on click
     function handleClick(e) {
 
         var $b = $(e.currentTarget);
         if ($b.attr("type") === "number") {
             updateNumber(ACTION_INCREMENT, $b.val());
         }
-        else /*if ($b.attr("type") === "action")*/ {
+        else {
             switch ($b.val()) {
                 case 'C':
                     updateNumber(ACTION_CLEAR);
-//                    a = '0';
-//                    // $("#input").val(a);
-//                    $(".disable").attr("disabled", false);
                     break;
 
-                case '<|':
+                case 'CE':
                     updateNumber(ACTION_DELETE_LAST);
-
                     break;
 
                 case '+-':
                     updateNumber(ACTION_REVERSE);
-
                     break;
 
                 case '%':
                     updateNumber(ACTION_PERCENT);
-
                     break;
 
                 case '+':
@@ -130,7 +109,6 @@
                 case 'x':
                 case '/':
                 case '√':
-
 
                     var n = numbers[actions.length];
                     if (n[n.length - 1] === '.')
@@ -146,26 +124,18 @@
                         actions.pop();
                         actions.push($b.val());
                     }
-//                    console.log(actions);
                     numbers[actions.length] = '0';
-
-//                    $(".disable").attr("disabled", true);
-//
-//                    a += '' + actions + '';
-//                    $("#input").val(a);
-
                     break;
 
                 case "=":
                     updateNumber(ACTION_CALCULATE);
                     break;
-//                    console.log(a);
-//                    $('input').val(a);
             }
         }
         updateInput();
     }
 
+// function for logic
     function updateNumber(action, value) {
 
         switch (action) {
@@ -177,7 +147,6 @@
                         if (n.indexOf(".") === -1) {
 
                             n += value;
-                            // $("#input").val(n);
                         }
                         break;
 
@@ -185,32 +154,25 @@
                         if (n.length === 1 && n === "0") {
                         }
                         else {
-//                            updateNumber(ACTION_INCREMENT, $b.val());
                             n += value;
-                            //$("#input").val(n);
                         }
                         break;
 
                     default:
                         if (n.length === 1 && n === "0") {
-                            //updateNumber(ACTION_REPLACE, $b.val());
-
                             n = value;
                         }
                         else {
-//                            updateNumber(ACTION_INCREMENT, $b.val());
                             n += value;
                         }
                 }
-
                 numbers[actions.length] = n;
-
                 break;
+
             case ACTION_REVERSE:
                 var n = numbers[actions.length];
                 if (n[0] === "-") {
                     n = n.substring(1, n.length);
-
                 }
                 else {
                     if (n !== "0") {
@@ -230,7 +192,6 @@
                 var a;
 
                 for (var i = 0; i < numbers.length; i++) {
-
                     if (a) {
                         var b = parseFloat(numbers[i]);
 
@@ -251,7 +212,6 @@
                     } else {
                         a = parseFloat(numbers[i]);
                     }
-
                 }
 
                 numbers = [a.toString()];
@@ -260,36 +220,36 @@
 
 
             case ACTION_PERCENT:
-
                 var s;
+                if (actions.length === 0)
+                    numbers[0] = '0';
 
-                for (var j = 0; j < numbers.length - 1; j++) {
+                else {
+                    for (var j = 0; j < numbers.length - 1; j++) {
 
-                    if (s) {
-                        var c = parseFloat(numbers[j]);
+                        if (s) {
+                            var c = parseFloat(numbers[j]);
 
-                        switch (actions[j - 1]) {
-                            case '+':
-                                s += c;
-                                break;
-                            case '-':
-                                s -= c;
-                                break;
-                            case '*':
-                                s *= c;
-                                break;
-                            case '/':
-                                s /= c;
-                                break;
+                            switch (actions[j - 1]) {
+                                case '+':
+                                    s += c;
+                                    break;
+                                case '-':
+                                    s -= c;
+                                    break;
+                                case '*':
+                                    s *= c;
+                                    break;
+                                case '/':
+                                    s /= c;
+                                    break;
+                            }
+                        } else {
+                            s = parseFloat(numbers[j]);
                         }
-                    } else {
-                        s = parseFloat(numbers[j]);
                     }
-
+                    numbers[actions.length] = ((s / 100) * numbers[actions.length]).toString();
                 }
-
-                numbers[actions.length] = ((s / 100)*numbers[actions.length]).toString();
-
                 break;
 
 
@@ -309,26 +269,17 @@
                     if (n.length === 0) {
                         n = '0';
                     }
-
                     numbers[actions.length] = n;
                 }
-
-
                 break;
+
             default:
                 console.log("unknown action");
-
         }
-
-
     }
-    //        if (!action)
-    //            n += value;
-    //        else
-    //            b += value;
 
 
-    function updateInput() {
+    function updateInput() {   // function to reflect result.
 
         var s = '';
         if (numbers.length === 1) {
